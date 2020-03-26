@@ -41,7 +41,7 @@ namespace ScottPlot
             foreach (DataSet barSet in datasets)
                 groupCount = Math.Max(groupCount, barSet.values.Length);
 
-            if (groupLabels.Length != groupCount)
+            if (groupLabels != null && groupLabels.Length != groupCount)
                 throw new ArgumentException("groupLabels must be same number of elements as the largest barSet values");
 
             if (setColors is null)
@@ -68,10 +68,14 @@ namespace ScottPlot
             }
         }
 
-        private (double min, double max) GetLimitsStandard()
+        public override AxisLimits2D GetLimits()
         {
-            double minValue = datasets[0].values[0];
-            double maxValue = datasets[0].values[0];
+            // determine bounds using X/Y-agnostic variable names
+
+            double valueMin = datasets[0].values[0];
+            double valueMax = datasets[0].values[0];
+            double positionMin = datasets[0].positions[0];
+            double positionMax = datasets[0].positions[0];
 
             foreach (var barSet in datasets)
             {
@@ -79,47 +83,30 @@ namespace ScottPlot
                 {
                     if (barSet.errors is null)
                     {
-                        minValue = Math.Min(minValue, barSet.values[valueIndex]);
-                        maxValue = Math.Max(maxValue, barSet.values[valueIndex]);
+                        valueMin = Math.Min(valueMin, barSet.values[valueIndex]);
+                        valueMax = Math.Max(valueMax, barSet.values[valueIndex]);
                     }
                     else
                     {
-                        minValue = Math.Min(minValue, barSet.values[valueIndex] - barSet.errors[valueIndex]);
-                        maxValue = Math.Max(maxValue, barSet.values[valueIndex] + barSet.errors[valueIndex]);
+                        valueMin = Math.Min(valueMin, barSet.values[valueIndex] - barSet.errors[valueIndex]);
+                        valueMax = Math.Max(valueMax, barSet.values[valueIndex] + barSet.errors[valueIndex]);
                     }
+
+                    positionMin = Math.Min(positionMin, barSet.positions[valueIndex]);
+                    positionMax = Math.Max(positionMax, barSet.positions[valueIndex]);
                 }
             }
-
-            return (Math.Min(0, minValue), maxValue);
-        }
-
-        private (double min, double max) GetLimitsStacked()
-        {
-            double maxValue = double.NegativeInfinity;
-
-            for (int groupIndex = 0; groupIndex < groupCount; groupIndex++)
-            {
-                double groupSum = 0;
-                foreach (var barSet in datasets)
-                    groupSum += barSet.values[groupIndex];
-                maxValue = Math.Max(maxValue, groupSum);
-            }
-
-            return (0, maxValue);
-        }
-
-        public override AxisLimits2D GetLimits()
-        {
-            (double minValue, double maxValue) = stacked ? GetLimitsStacked() : GetLimitsStandard();
 
             double interGroupSpaceFrac = 0.25;
             double barFillGroupFrac = 1 - interGroupSpaceFrac;
             double sidePadding = barFillGroupFrac / 2;
+            positionMin -= sidePadding;
+            positionMax += sidePadding;
 
             if (horizontal)
-                return new AxisLimits2D(minValue, maxValue, -sidePadding, groupCount - 1 + sidePadding);
+                return new AxisLimits2D(valueMin, valueMax, positionMin, positionMax);
             else
-                return new AxisLimits2D(-sidePadding, groupCount - 1 + sidePadding, minValue, maxValue);
+                return new AxisLimits2D(positionMin, positionMax, valueMin, valueMax);
         }
 
         public override void Render(Settings settings)
@@ -153,16 +140,13 @@ namespace ScottPlot
             {
                 // set bar style for this whole series
 
-                double barOffset = setIndex * barWidthFrac;
-
                 for (int groupIndex = 0; groupIndex < groupCount; groupIndex++)
                 {
-                    // draw the bar for every group
+                    double barOffsetX = datasets[setIndex].positions[groupIndex];
+                    double barOffset = groupIndex * barWidthFrac + barOffsetX;
 
                     // determine the width and horizontal offset of this bar
-                    double xOffset = barWidthFrac / 2;
-                    double groupOffset = groupIndex;
-                    double barLeft = groupOffset + barOffset - xOffset * barSetCount;
+                    double barLeft = groupIndex + barOffset - (barWidthFrac / 2) * barSetCount;
                     double barRight = barLeft + barWidthFrac;
 
                     // determine the height of this bar

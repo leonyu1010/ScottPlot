@@ -681,6 +681,7 @@ namespace ScottPlot
             double[] ys,
             string[] groupLabels = null,
             double[] yErrors = null,
+            double[] xs = null,
             string label = null,
             bool stacked = false,
             bool horizontal = false,
@@ -689,7 +690,7 @@ namespace ScottPlot
             double errorCapSize = 4
             )
         {
-            DataSet singleDataSet = new DataSet(label, ys, yErrors);
+            DataSet singleDataSet = new DataSet(label, ys, yErrors, xs);
             DataSet[] dataSets = new DataSet[] { singleDataSet };
 
             PlottableBar bar = new PlottableBar(dataSets, groupLabels, stacked, horizontal, outlineWidth, errorLineWidth, errorCapSize);
