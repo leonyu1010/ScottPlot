@@ -18,6 +18,8 @@ namespace ScottPlot.Demo.Examples
                 double[] values = DataGen.RandomNormal(rand, pointCount: 1000, mean: 50, stdDev: 20);
                 var hist = new Statistics.Histogram(values, min: 0, max: 100);
 
+                // TODO: plot these data
+                /*
                 plt.PlotBar(hist.bins, hist.countsFrac);
                 plt.PlotScatter(hist.bins, hist.countsFracCurve, markerSize: 0, lineWidth: 2, color: Color.Black);
                 plt.Title("Normal Random Data");
@@ -25,6 +27,7 @@ namespace ScottPlot.Demo.Examples
                 plt.XLabel("Value (units)");
                 plt.Axis(null, null, 0, null);
                 plt.Grid(lineStyle: LineStyle.Dot);
+                */
             }
         }
 

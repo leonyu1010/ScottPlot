@@ -16,16 +16,7 @@ namespace ScottPlot.Demo.PlotTypes
                 var votes = new double[] { 33706, 36813, 12496 };
                 var groups = new string[] { "Debian", "SuSE", "Red Hat" };
 
-                // create the bar graph
-                plt.PlotBar(votes, groups);
-                plt.XTicks(labels: groups);
-
-                // further improve the style of the plot
-                plt.Title("Favorite Linux Distribution");
-                plt.YLabel("Respondants");
-                plt.Grid(enableVertical: false, lineStyle: LineStyle.Dot);
-                plt.Axis(y1: 0);
-                plt.Ticks(useMultiplierNotation: false);
+                // TODO: plot these data
             }
         }
 
@@ -39,15 +30,7 @@ namespace ScottPlot.Demo.PlotTypes
                 var population = new double[] { 2556, 3039, 3706, 4453, 5278, 6082, 6848, 7584, 8246, 8850, 9346 };
                 var year = new double[] { 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020, 2030, 2040, 2050 };
 
-                // create the bar graph
-                plt.PlotBar(population, xs: year);
-
-                // further improve the style of the plot
-                plt.Title("World Population");
-                plt.YLabel("Millions of People");
-                plt.XLabel("Year");
-                plt.Axis(y1: 0);
-                plt.Ticks(useMultiplierNotation: false);
+                // TODO: plot these data
             }
         }
 
@@ -68,17 +51,7 @@ namespace ScottPlot.Demo.PlotTypes
                     "human", "cat", "dog", "frog", "lion", "elephant",
                     "horse", "shark", "hippo" };
 
-                // create the bar graph
-                plt.PlotBar(values, groups, errors, outlineWidth: 1);
-                plt.XTicks(labels: groups);
-                plt.Ticks(xTickRotation: 45);
-                plt.Layout(xScaleHeight: 50); // extra padding below the graph
-
-                // further improve the style of the plot
-                plt.Title("Body/Brain Mass Ratio");
-                plt.Grid(enableVertical: false, lineStyle: LineStyle.Dot);
-                plt.Axis(y1: 0);
-                plt.Ticks(useMultiplierNotation: false);
+                // TODO: plot these data
             }
         }
 
@@ -103,16 +76,7 @@ namespace ScottPlot.Demo.PlotTypes
                 var groupLabels = new string[] {
                     "Always", "Regularly", "Sometimes", "Never" };
 
-                // create the bar graph
-                plt.PlotBar(dataSets, groupLabels, outlineWidth: 1);
-                plt.XTicks(groupLabels);
-
-                // plot the experimental plottable
-                plt.Title("How often do you read reviews?");
-                plt.YLabel("Respondents");
-                plt.Axis(y1: 0);
-                plt.Grid(enableVertical: false, lineStyle: LineStyle.Dot);
-                plt.Legend(location: legendLocation.upperRight);
+                // TODO: plot these data
             }
         }
 
@@ -137,16 +101,7 @@ namespace ScottPlot.Demo.PlotTypes
                 var groupLabels = new string[] {
                     "Always", "Regularly", "Sometimes", "Never" };
 
-                // create the bar graph
-                plt.PlotBar(dataSets, groupLabels, stacked: true, outlineWidth: 1);
-                plt.XTicks(groupLabels);
-
-                // plot the experimental plottable
-                plt.Title("How often do you read reviews?");
-                plt.YLabel("Respondents");
-                plt.Axis(y1: 0);
-                plt.Grid(enableVertical: false, lineStyle: LineStyle.Dot);
-                plt.Legend(location: legendLocation.upperRight);
+                // TODO: plot these data
             }
         }
 
@@ -171,16 +126,7 @@ namespace ScottPlot.Demo.PlotTypes
                 var groupLabels = new string[] {
                     "Always", "Regularly", "Sometimes", "Never" };
 
-                // create the bar graph
-                plt.PlotBar(dataSets, groupLabels, horizontal: true, outlineWidth: 1);
-                plt.YTicks(groupLabels);
-
-                // plot the experimental plottable
-                plt.Title("How often do you read reviews?");
-                plt.XLabel("Respondents");
-                plt.Axis(x1: 0);
-                plt.Grid(enableHorizontal: false, lineStyle: LineStyle.Dot);
-                plt.Legend(location: legendLocation.upperRight);
+                // TODO: plot these data
             }
         }
     }

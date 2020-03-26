@@ -308,8 +308,6 @@ namespace ScottPlot
                     indicesToDelete.Add(i);
                 else if (settings.plottables[i] is PlottableText && text)
                     indicesToDelete.Add(i);
-                else if (settings.plottables[i] is PlottableBar && bar)
-                    indicesToDelete.Add(i);
                 else if (settings.plottables[i] is PlottableOHLC && finance)
                     indicesToDelete.Add(i);
                 else if ((settings.plottables[i] is PlottableVSpan || settings.plottables[i] is PlottableHSpan) && axisSpans)
@@ -674,50 +672,7 @@ namespace ScottPlot
             return signal;
         }
 
-        /// <summary>
-        /// Create a simple one-series bar plot.
-        /// </summary>
-        public PlottableBar PlotBar(
-            double[] ys,
-            string[] groupLabels = null,
-            double[] yErrors = null,
-            double[] xs = null,
-            string label = null,
-            bool stacked = false,
-            bool horizontal = false,
-            double outlineWidth = 0,
-            double errorLineWidth = 1,
-            double errorCapSize = 4
-            )
-        {
-            DataSet singleDataSet = new DataSet(label, ys, yErrors, xs);
-            DataSet[] dataSets = new DataSet[] { singleDataSet };
-
-            PlottableBar bar = new PlottableBar(dataSets, groupLabels, stacked, horizontal, outlineWidth, errorLineWidth, errorCapSize);
-            Add(bar); // TODO: modify all functions in this class to add plottables like this
-
-            return bar;
-        }
-
-        /// <summary>
-        /// Create a bar plot from multiple data series and groups.
-        /// </summary>
-        public PlottableBar PlotBar(
-            DataSet[] dataSets,
-            string[] groupLabels = null,
-            bool stacked = false,
-            bool horizontal = false,
-            double outlineWidth = 0,
-            double errorLineWidth = 1,
-            double errorCapSize = 4
-            )
-        {
-            PlottableBar bar = new PlottableBar(dataSets, groupLabels, stacked, horizontal, outlineWidth, errorLineWidth, errorCapSize);
-            Add(bar); // TODO: modify all functions in this class to add plottables like this
-
-            return bar;
-        }
-
+        /*
         [Obsolete("This type of Bar plot is deprecated. Refer to the ScottPlot cookbook for modern Bar graph examples.")]
         public PlottableBarObsolete PlotBar(
             double[] xs,
@@ -734,24 +689,10 @@ namespace ScottPlot
             if (color == null)
                 color = settings.GetNextColor();
 
-            if (barWidth == null)
-                barWidth = (xs[1] - xs[0]) * .8;
-
-            PlottableBarObsolete barPlot = new PlottableBarObsolete(
-                xs: xs,
-                ys: ys,
-                barWidth: (double)barWidth,
-                xOffset: xOffset,
-                color: (Color)color,
-                label: label,
-                yErr: errorY,
-                errorLineWidth: errorLineWidth,
-                errorCapSize: errorCapSize
-                );
-
             settings.plottables.Add(barPlot);
             return barPlot;
         }
+        */
 
         public PlottableOHLC PlotOHLC(OHLC[] ohlcs)
         {
