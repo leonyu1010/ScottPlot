@@ -29,6 +29,28 @@ namespace ScottPlot.Demo.PlotTypes
             }
         }
 
+        public class DefineXs : PlotDemo, IPlotDemo
+        {
+            public string name { get; } = "Bar Graph with Defined Xs";
+            public string description { get; } = "This example demonstrates how to make a bar chart at specific X coordinates.";
+
+            public void Render(Plot plt)
+            {
+                var population = new double[] { 2556, 3039, 3706, 4453, 5278, 6082, 6848, 7584, 8246, 8850, 9346 };
+                var year = new double[] { 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020, 2030, 2040, 2050 };
+
+                // create the bar graph
+                plt.PlotBar(population, xs: year);
+
+                // further improve the style of the plot
+                plt.Title("World Population");
+                plt.YLabel("Millions of People");
+                plt.XLabel("Year");
+                plt.Axis(y1: 0);
+                plt.Ticks(useMultiplierNotation: false);
+            }
+        }
+
         public class BarAngled : PlotDemo, IPlotDemo
         {
             public string name { get; } = "Bar Graph with Angled Labels";
